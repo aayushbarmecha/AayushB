@@ -1,0 +1,16 @@
+import { Schema, models, model } from "mongoose";
+
+export interface IAdminUser {
+  _id: string;
+  username: string;
+  passwordHash: string;
+  createdAt: Date;
+}
+
+const AdminUserSchema = new Schema<IAdminUser>({
+  username: { type: String, required: true, unique: true },
+  passwordHash: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
+
+export default models.AdminUser || model<IAdminUser>("AdminUser", AdminUserSchema);
