@@ -15,7 +15,6 @@ Personal portfolio + technical blog for Aayush Barmecha. Next.js (App Router) + 
 
 ```bash
 npm install
-cp .env.example .env.local
 ```
 
 Fill in `.env.local`:
