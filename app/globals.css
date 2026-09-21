@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fbfbfe;
+  --surface: #ffffff;
+  --surface-muted: #f2f3f9;
+  --foreground: #14141f;
+  --muted: #5b5f73;
+  --border: #e6e7f0;
+  --accent: #6d5bff;
+  --accent-2: #17c3b2;
+  --accent-3: #ff7a59;
+  --ring: #6d5bff;
+}
+
+.dark {
+  --background: #0a0b12;
+  --surface: #111320;
+  --surface-muted: #161829;
+  --foreground: #f2f2f8;
+  --muted: #9698ac;
+  --border: #23253a;
+  --accent: #8b7bff;
+  --accent-2: #2dd9c6;
+  --accent-3: #ff9270;
+  --ring: #8b7bff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-3: var(--accent-3);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+.text-gradient {
+  background-image: linear-gradient(100deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, var(--border) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.prose-portfolio h2 {
+  scroll-margin-top: 6rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.prose-portfolio h3 {
+  scroll-margin-top: 6rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-portfolio p {
+  margin-bottom: 1.1rem;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.prose-portfolio ul,
+.prose-portfolio ol {
+  margin: 1rem 0 1.25rem 1.25rem;
+  color: var(--muted);
+}
+.prose-portfolio li {
+  margin-bottom: 0.4rem;
+  line-height: 1.7;
+}
+.prose-portfolio a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.prose-portfolio img {
+  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  margin: 1.5rem 0;
+}
+.prose-portfolio code {
+  background: var(--surface-muted);
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.35rem;
+  font-size: 0.85em;
+}
+.prose-portfolio pre code {
+  background: transparent;
+  padding: 0;
+}
+.prose-portfolio blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--muted);
+  font-style: italic;
+  margin: 1.25rem 0;
+}
