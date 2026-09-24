@@ -8,19 +8,17 @@ export const siteConfig = {
   location: "Hyderabad, India",
   email: "barmecha99@gmail.com",
   phone: "+91 9898865148",
-  // Swap /public/profile.jpg with your own photo whenever you have one — no code changes needed.
   profileImage: "/author.jpg",
   resumeUrl: "/resume.pdf",
-  siteUrl: "https://your-name.vercel.app", // update after first Vercel deploy
+  siteUrl: "https://aayushbarmecha.vercel.app",
   ogImage: "/og-image.png",
 
-  // TODO: fill in your real profile URLs — these are left empty on purpose.
   social: {
-    github: "",
-    linkedin: "",
-    leetcode: "",
-    geeksforgeeks: "",
-    codechef: "",
+    github: "https://github.com/aayushbarmecha",
+    linkedin: "https://www.linkedin.com/in/aayush-barmecha-8215721ba/",
+    leetcode: "https://leetcode.com/u/chambear/",
+    geeksforgeeks: "https://www.geeksforgeeks.org/profile/chambear",
+    codechef: "https://www.codechef.com/users/chambear",
   },
 
   focusAreas: [
