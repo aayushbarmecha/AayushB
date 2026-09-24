@@ -34,7 +34,7 @@ export default function Hero() {
             </Link>
             <a
               href={siteConfig.resumeUrl}
-              download="Aayush Barmecha Resume.pdf"
+              download
               className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-3 text-sm font-semibold transition-colors hover:bg-surface-muted"
             >
               <Download size={16} />

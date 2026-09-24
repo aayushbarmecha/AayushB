@@ -9,7 +9,7 @@ export const siteConfig = {
   email: "barmecha99@gmail.com",
   phone: "+91 9898865148",
   profileImage: "/author.jpg",
-  resumeUrl: "/resume.pdf",
+  resumeUrl: "/api/resume",
   siteUrl: "https://aayushbarmecha.vercel.app",
   ogImage: "/og-image.png",
 
