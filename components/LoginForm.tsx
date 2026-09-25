@@ -7,7 +7,14 @@ export default function LoginForm() {
   const [state, formAction, pending] = useActionState(loginAction, null);
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form
+      action={formAction}
+      className="space-y-4"
+      onSubmit={() => {
+        // This has no expiry, so the browser removes it when the browser is closed.
+        document.cookie = "admin-browser-session=1; Path=/; SameSite=Lax";
+      }}
+    >
       <div>
         <label htmlFor="username" className="mb-1.5 block text-sm font-medium">
           Username
