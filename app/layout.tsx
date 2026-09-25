@@ -5,6 +5,7 @@ import ThemeProvider from "@/components/ThemeProvider";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import PageTransition from "@/components/PageTransition";
+import AdminExitHandler from "@/components/AdminExitHandler";
 import { siteConfig } from "@/lib/site.config";
 
 const geistSans = Geist({
@@ -45,6 +46,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AdminExitHandler />
           <Nav />
           <main className="flex-1">
             <PageTransition>{children}</PageTransition>
