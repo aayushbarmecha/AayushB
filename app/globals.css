@@ -56,6 +56,51 @@ body {
   color: var(--foreground);
 }
 
+/* Keep interactive elements visually and physically distinct from static content. */
+button:not(:disabled),
+a[href],
+[role="button"],
+select,
+summary {
+  cursor: pointer;
+}
+
+button,
+a[href],
+[role="button"] {
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease,
+    opacity 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+@media (hover: hover) {
+  button:not(:disabled):hover,
+  [role="button"]:hover,
+  a[href]:is(.rounded-full, .rounded-xl, .rounded-2xl):hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px color-mix(in srgb, var(--foreground) 12%, transparent);
+  }
+}
+
+button:not(:disabled):active,
+[role="button"]:active,
+a[href]:is(.rounded-full, .rounded-xl, .rounded-2xl):active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow: none;
+}
+
+button:focus-visible,
+a[href]:focus-visible,
+[role="button"]:focus-visible,
+select:focus-visible,
+summary:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--ring) 55%, transparent);
+  outline-offset: 3px;
+}
+
 ::selection {
   background: var(--accent);
   color: white;
