@@ -45,6 +45,7 @@ export default function AdminExitHandler() {
       if (destination.origin !== window.location.origin || destination.pathname.startsWith("/admin")) return;
 
       event.preventDefault();
+      window.sessionStorage.removeItem("admin-tab-session");
       await fetch("/api/admin/session", { method: "POST", keepalive: true });
       window.location.assign(destination.href);
     };

@@ -11,8 +11,9 @@ export default function LoginForm() {
       action={formAction}
       className="space-y-4"
       onSubmit={() => {
-        // This has no expiry, so the browser removes it when the browser is closed.
+        // A cookie protects server requests; sessionStorage limits access to this tab.
         document.cookie = "admin-browser-session=1; Path=/; SameSite=Lax";
+        window.sessionStorage.setItem("admin-tab-session", "1");
       }}
     >
       <div>

@@ -12,6 +12,12 @@ export default function AdminAccessGuard() {
     let cancelled = false;
 
     const verifySession = async () => {
+      if (window.sessionStorage.getItem("admin-tab-session") !== "1") {
+        await fetch("/api/admin/session", { method: "POST", keepalive: true });
+        if (!cancelled) window.location.replace("/admin/login");
+        return;
+      }
+
       const response = await fetch("/api/admin/session", { cache: "no-store" });
       if (!cancelled && !response.ok) {
         window.location.replace("/admin/login");
