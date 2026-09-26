@@ -15,6 +15,7 @@ export interface IProject {
   challenges: string;
   impact: string;
   featured: boolean;
+  pinned: boolean;
   order: number;
   createdAt: Date;
   updatedAt: Date;
@@ -35,6 +36,7 @@ const ProjectSchema = new Schema<IProject>(
     challenges: { type: String, default: "" },
     impact: { type: String, default: "" },
     featured: { type: Boolean, default: false },
+    pinned: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
   },
   { timestamps: true }

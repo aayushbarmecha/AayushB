@@ -74,6 +74,10 @@ export default function ProjectForm({ project }: { project?: IProject }) {
           <input type="checkbox" name="featured" defaultChecked={project?.featured} className="h-4 w-4" />
           Featured on homepage
         </label>
+        <label className="flex items-center gap-2 text-sm font-medium">
+          <input type="checkbox" name="pinned" defaultChecked={project?.pinned} className="h-4 w-4" />
+          Pin to the top
+        </label>
         <div>
           <label className={label}>Order</label>
           <input type="number" name="order" defaultValue={project?.order ?? 0} className={field} />

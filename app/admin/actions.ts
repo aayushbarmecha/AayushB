@@ -66,6 +66,7 @@ export async function savePost(id: string | null, formData: FormData) {
     tags: listFromField(formData.get("tags")),
     content: String(formData.get("content") ?? ""),
     status,
+    pinned: formData.get("pinned") === "on",
     publishedAt: status === "published" ? new Date() : undefined,
   };
 
@@ -83,6 +84,23 @@ export async function deletePost(id: string) {
   await requireAdmin();
   await connectToDatabase();
   await BlogPost.findByIdAndDelete(id);
+  revalidateTag("posts", { expire: 0 });
+  redirect("/admin/posts");
+}
+
+export async function movePost(id: string, direction: "up" | "down") {
+  await requireAdmin();
+  await connectToDatabase();
+
+  const post = await BlogPost.findById(id).lean();
+  if (!post) return;
+  const posts = await BlogPost.find({ pinned: post.pinned }).sort({ order: 1, createdAt: -1 }).lean();
+  const index = posts.findIndex((item) => item._id.toString() === id);
+  const targetIndex = direction === "up" ? index - 1 : index + 1;
+  if (index < 0 || targetIndex < 0 || targetIndex >= posts.length) return;
+
+  [posts[index], posts[targetIndex]] = [posts[targetIndex], posts[index]];
+  await BlogPost.bulkWrite(posts.map((item, order) => ({ updateOne: { filter: { _id: item._id }, update: { order } } })));
   revalidateTag("posts", { expire: 0 });
   redirect("/admin/posts");
 }
@@ -110,6 +128,7 @@ export async function saveProject(id: string | null, formData: FormData) {
     challenges: String(formData.get("challenges") ?? ""),
     impact: String(formData.get("impact") ?? ""),
     featured: formData.get("featured") === "on",
+    pinned: formData.get("pinned") === "on",
     order: Number(formData.get("order") ?? 0),
   };
 
@@ -127,6 +146,23 @@ export async function deleteProject(id: string) {
   await requireAdmin();
   await connectToDatabase();
   await Project.findByIdAndDelete(id);
+  revalidateTag("projects", { expire: 0 });
+  redirect("/admin/projects");
+}
+
+export async function moveProject(id: string, direction: "up" | "down") {
+  await requireAdmin();
+  await connectToDatabase();
+
+  const project = await Project.findById(id).lean();
+  if (!project) return;
+  const projects = await Project.find({ pinned: project.pinned }).sort({ order: 1, createdAt: -1 }).lean();
+  const index = projects.findIndex((item) => item._id.toString() === id);
+  const targetIndex = direction === "up" ? index - 1 : index + 1;
+  if (index < 0 || targetIndex < 0 || targetIndex >= projects.length) return;
+
+  [projects[index], projects[targetIndex]] = [projects[targetIndex], projects[index]];
+  await Project.bulkWrite(projects.map((item, order) => ({ updateOne: { filter: { _id: item._id }, update: { order } } })));
   revalidateTag("projects", { expire: 0 });
   redirect("/admin/projects");
 }

@@ -11,7 +11,7 @@ export const getPublishedPosts = cache(
   async (): Promise<IBlogPost[]> => {
     await connectToDatabase();
     const posts = await BlogPost.find({ status: "published" })
-      .sort({ publishedAt: -1 })
+      .sort({ pinned: -1, order: 1, publishedAt: -1 })
       .lean();
     return JSON.parse(JSON.stringify(posts));
   },
@@ -32,7 +32,7 @@ export const getPostBySlug = cache(
 export const getAllProjects = cache(
   async (): Promise<IProject[]> => {
     await connectToDatabase();
-    const projects = await Project.find({}).sort({ order: 1, createdAt: -1 }).lean();
+    const projects = await Project.find({}).sort({ pinned: -1, order: 1, createdAt: -1 }).lean();
     return JSON.parse(JSON.stringify(projects));
   },
   ["all-projects"],

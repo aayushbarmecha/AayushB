@@ -8,7 +8,7 @@ import ContactMessage from "@/models/ContactMessage";
 
 export async function getAllPostsAdmin() {
   await connectToDatabase();
-  const posts = await BlogPost.find({}).sort({ createdAt: -1 }).lean();
+  const posts = await BlogPost.find({}).sort({ pinned: -1, order: 1, createdAt: -1 }).lean();
   return JSON.parse(JSON.stringify(posts));
 }
 
@@ -20,7 +20,7 @@ export async function getPostByIdAdmin(id: string) {
 
 export async function getAllProjectsAdmin() {
   await connectToDatabase();
-  const projects = await Project.find({}).sort({ order: 1, createdAt: -1 }).lean();
+  const projects = await Project.find({}).sort({ pinned: -1, order: 1, createdAt: -1 }).lean();
   return JSON.parse(JSON.stringify(projects));
 }
 

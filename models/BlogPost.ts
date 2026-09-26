@@ -9,6 +9,8 @@ export interface IBlogPost {
   tags: string[];
   content: string; // Markdown/MDX source
   status: "draft" | "published";
+  pinned: boolean;
+  order: number;
   publishedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
@@ -23,6 +25,8 @@ const BlogPostSchema = new Schema<IBlogPost>(
     tags: { type: [String], default: [] },
     content: { type: String, required: true },
     status: { type: String, enum: ["draft", "published"], default: "draft" },
+    pinned: { type: Boolean, default: false },
+    order: { type: Number, default: 0 },
     publishedAt: { type: Date },
   },
   { timestamps: true }
