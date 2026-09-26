@@ -27,8 +27,8 @@ export default async function AdminPostsPage() {
               {post.status}
             </span>
             <div className="flex gap-1">
-              <form action={movePost.bind(null, post._id, "up")}><button aria-label={`Move ${post.title} up`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↑</button></form>
-              <form action={movePost.bind(null, post._id, "down")}><button aria-label={`Move ${post.title} down`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↓</button></form>
+              <form action={movePost.bind(null, post._id, "up")}><button type="submit" aria-label={`Move ${post.title} up`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↑</button></form>
+              <form action={movePost.bind(null, post._id, "down")}><button type="submit" aria-label={`Move ${post.title} down`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↓</button></form>
             </div>
           </div>
         ))}

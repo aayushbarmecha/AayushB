@@ -71,16 +71,28 @@ export default function PostForm({ post }: { post?: IBlogPost }) {
         />
       </div>
 
-      <div>
-        <label className="mb-1.5 block text-sm font-medium">Status</label>
-        <select
-          name="status"
-          defaultValue={post?.status ?? "draft"}
-          className="w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm outline-none ring-accent/30 focus:ring-2"
-        >
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-        </select>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Status</label>
+          <select
+            name="status"
+            defaultValue={post?.status ?? "draft"}
+            className="w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm outline-none ring-accent/30 focus:ring-2"
+          >
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-medium">Publish date</label>
+          <input
+            type="date"
+            name="publishedAt"
+            defaultValue={post?.publishedAt ? new Date(post.publishedAt).toISOString().slice(0, 10) : ""}
+            className="w-full rounded-xl border border-border bg-surface px-4 py-2.5 text-sm outline-none ring-accent/30 focus:ring-2"
+          />
+          <p className="mt-1 text-xs text-muted">Leave blank to keep the existing date, or use today for a new post.</p>
+        </div>
       </div>
 
       <label className="flex items-center gap-2 text-sm font-medium">

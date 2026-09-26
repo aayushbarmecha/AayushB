@@ -25,8 +25,8 @@ export default async function AdminProjectsPage() {
             {project.pinned && <span className="rounded-full bg-accent/15 px-2.5 py-1 text-xs font-medium text-accent">Pinned</span>}
             {project.featured && <span className="rounded-full bg-accent-2/15 px-2.5 py-1 text-xs font-medium text-accent-2">Featured</span>}
             <div className="flex gap-1">
-              <form action={moveProject.bind(null, project._id, "up")}><button aria-label={`Move ${project.title} up`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↑</button></form>
-              <form action={moveProject.bind(null, project._id, "down")}><button aria-label={`Move ${project.title} down`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↓</button></form>
+              <form action={moveProject.bind(null, project._id, "up")}><button type="submit" aria-label={`Move ${project.title} up`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↑</button></form>
+              <form action={moveProject.bind(null, project._id, "down")}><button type="submit" aria-label={`Move ${project.title} down`} className="rounded p-1 text-muted hover:bg-surface-muted hover:text-foreground">↓</button></form>
             </div>
           </div>
         ))}

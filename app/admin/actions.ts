@@ -57,6 +57,14 @@ export async function savePost(id: string | null, formData: FormData) {
   const title = String(formData.get("title") ?? "");
   const status = formData.get("status") === "published" ? "published" : "draft";
   const slugInput = String(formData.get("slug") ?? "");
+  const requestedPublishedAt = String(formData.get("publishedAt") ?? "");
+  const existingPost = id ? await BlogPost.findById(id).lean() : null;
+  const publishedAt =
+    status === "published"
+      ? requestedPublishedAt
+        ? new Date(`${requestedPublishedAt}T00:00:00.000Z`)
+        : existingPost?.publishedAt ?? new Date()
+      : existingPost?.publishedAt;
 
   const data = {
     title,
@@ -67,7 +75,7 @@ export async function savePost(id: string | null, formData: FormData) {
     content: String(formData.get("content") ?? ""),
     status,
     pinned: formData.get("pinned") === "on",
-    publishedAt: status === "published" ? new Date() : undefined,
+    publishedAt,
   };
 
   if (id) {
@@ -94,13 +102,20 @@ export async function movePost(id: string, direction: "up" | "down") {
 
   const post = await BlogPost.findById(id).lean();
   if (!post) return;
-  const posts = await BlogPost.find({ pinned: post.pinned }).sort({ order: 1, createdAt: -1 }).lean();
+  const isPinned = post.pinned === true;
+  const posts = await BlogPost.find(
+    isPinned ? { pinned: true } : { $or: [{ pinned: false }, { pinned: { $exists: false } }] }
+  )
+    .sort({ order: 1, createdAt: -1 })
+    .lean();
   const index = posts.findIndex((item) => item._id.toString() === id);
   const targetIndex = direction === "up" ? index - 1 : index + 1;
   if (index < 0 || targetIndex < 0 || targetIndex >= posts.length) return;
 
   [posts[index], posts[targetIndex]] = [posts[targetIndex], posts[index]];
-  await BlogPost.bulkWrite(posts.map((item, order) => ({ updateOne: { filter: { _id: item._id }, update: { order } } })));
+  await BlogPost.bulkWrite(
+    posts.map((item, order) => ({ updateOne: { filter: { _id: item._id }, update: { order, pinned: isPinned } } }))
+  );
   revalidateTag("posts", { expire: 0 });
   redirect("/admin/posts");
 }
@@ -156,13 +171,20 @@ export async function moveProject(id: string, direction: "up" | "down") {
 
   const project = await Project.findById(id).lean();
   if (!project) return;
-  const projects = await Project.find({ pinned: project.pinned }).sort({ order: 1, createdAt: -1 }).lean();
+  const isPinned = project.pinned === true;
+  const projects = await Project.find(
+    isPinned ? { pinned: true } : { $or: [{ pinned: false }, { pinned: { $exists: false } }] }
+  )
+    .sort({ order: 1, createdAt: -1 })
+    .lean();
   const index = projects.findIndex((item) => item._id.toString() === id);
   const targetIndex = direction === "up" ? index - 1 : index + 1;
   if (index < 0 || targetIndex < 0 || targetIndex >= projects.length) return;
 
   [projects[index], projects[targetIndex]] = [projects[targetIndex], projects[index]];
-  await Project.bulkWrite(projects.map((item, order) => ({ updateOne: { filter: { _id: item._id }, update: { order } } })));
+  await Project.bulkWrite(
+    projects.map((item, order) => ({ updateOne: { filter: { _id: item._id }, update: { order, pinned: isPinned } } }))
+  );
   revalidateTag("projects", { expire: 0 });
   redirect("/admin/projects");
 }
