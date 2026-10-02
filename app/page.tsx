@@ -52,7 +52,7 @@ export default async function HomePage() {
       {recentPosts.length > 0 && (
         <section className="mx-auto max-w-6xl px-5 py-20">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <SectionHeading eyebrow="Writing" title="From the technical blog" />
+            <SectionHeading eyebrow="Writing" title="From my blogs/experiences" />
             <Reveal>
               <Link href="/blog" className="group inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
                 All posts

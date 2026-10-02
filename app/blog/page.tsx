@@ -25,8 +25,8 @@ export default async function BlogPage({
   return (
     <div className="mx-auto max-w-6xl px-5 py-16 sm:py-24">
       <Reveal>
-        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Technical Blog</h1>
-        <p className="mt-3 max-w-xl text-muted">Notes on building AI systems, data pipelines, and dev tooling.</p>
+        <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Blogging section</h1>
+        <p className="mt-3 max-w-xl text-muted">A place where I put my thoughts, ideas and experiences.</p>
       </Reveal>
 
       {tags.length > 0 && (
