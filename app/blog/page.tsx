@@ -4,6 +4,7 @@ import BlogCard from "@/components/BlogCard";
 import Reveal from "@/components/Reveal";
 import { getPublishedPosts } from "@/lib/data";
 import { siteConfig } from "@/lib/site.config";
+import BlogTagFilter from "./blogTagFilter";
 
 export const revalidate = 3600;
 
@@ -30,22 +31,8 @@ export default async function BlogPage({
       </Reveal>
 
       {tags.length > 0 && (
-        <Reveal delay={0.05} className="mt-8 flex flex-wrap gap-2">
-          <Link
-            href="/blog"
-            className={`rounded-full px-3.5 py-1.5 text-xs font-medium ${!tag ? "bg-foreground text-background" : "bg-surface-muted text-muted"}`}
-          >
-            All
-          </Link>
-          {tags.map((t) => (
-            <Link
-              key={t}
-              href={`/blog?tag=${encodeURIComponent(t)}`}
-              className={`rounded-full px-3.5 py-1.5 text-xs font-medium ${tag === t ? "bg-foreground text-background" : "bg-surface-muted text-muted"}`}
-            >
-              {t}
-            </Link>
-          ))}
+        <Reveal delay={0.05}>
+          <BlogTagFilter tags={tags} activeTag={tag} />
         </Reveal>
       )}
 
